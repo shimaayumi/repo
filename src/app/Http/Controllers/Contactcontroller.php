@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Http\Requests\ContactFormRequest;
 use App\Models\Contact;
+use App\Http\Requests\ContactFormRequest;
 
 class ContactController extends Controller
 {
@@ -45,5 +45,35 @@ class ContactController extends Controller
         Contact::create($data); // フォームデータを保存
         session()->forget('contact_data'); // セッションからデータを削除
         return redirect()->route('contact.thanks'); // 送信完了画面へリダイレクト
+    }
+
+    // 検索機能
+    public function search(Request $request)
+    {
+        $query = Contact::query();
+
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->filled('email')) {
+            $query->where('email', 'like', '%' . $request->email . '%');
+        }
+
+        if ($request->filled('gender')) {
+            $query->where('gender', $request->gender);
+        }
+
+        if ($request->filled('inquiry_type')) {
+            $query->where('inquiry_type', 'like', '%' . $request->inquiry_type . '%');
+        }
+
+        if ($request->filled('date')) {
+            $query->whereDate('date', $request->date);
+        }
+
+        $results = $query->paginate(7);
+
+        return view('admin.contacts.index', compact('results'));
     }
 }

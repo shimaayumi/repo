@@ -7,6 +7,11 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Fortify;
 
+
+
+
+
+
 // Fortify のログイン・登録・パスワードリセット画面を設定
 Fortify::loginView(fn() => view('auth.login'));
 Fortify::registerView(fn() => view('auth.register'));
@@ -30,3 +35,21 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('l
 
 // Fortify のログアウト処理
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
+
+Route::get('/admin/export', [AdminController::class, 'export'])->name('admin.export');
+
+
+
+Route::get('/admin', [AdminController::class, 'index']); // 追加：/admin にアクセスしたときに index メソッドを呼び出す
+
+
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    // その他のルート
+
+    // ユーザー削除用のルート
+    Route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('delete');
+});
