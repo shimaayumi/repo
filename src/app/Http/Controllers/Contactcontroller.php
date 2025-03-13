@@ -24,7 +24,17 @@ class ContactController extends Controller
     public function store(ContactFormRequest $request)
     {
         $data = $request->validated();
-      
+
+        $validated = $request->validate([
+            'tel1' => 'required|digits:3',
+            'tel2' => 'required|digits:4',
+            'tel3' => 'required|digits:4',
+        ]);
+
+        // 電話番号を結合して1つの文字列にする
+        $tel = $validated['tel1'] . '-' . $validated['tel2'] . '-' . $validated['tel3'];
+
+
         // 性別デフォルト設定 (未選択時)
         if (empty($data['gender'])) {
             $data['gender'] = 1;  // デフォルトは "男性"
@@ -36,6 +46,11 @@ class ContactController extends Controller
     public function confirm(Request $request)
     {
         $data = $request->old();
+        // フォームから送信された tel1, tel2, tel3 を結合
+        $tel = $data['tel1'] . $data['tel2']  . $data['tel3'];
+
+        // 結合された電話番号を $data に追加
+        $data['tel'] = $tel;
 
         // category_id からカテゴリ名を取得
         $category = Category::find($data['category_id']);

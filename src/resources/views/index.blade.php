@@ -66,7 +66,13 @@
 
                 <div>
                     <label for="tel">電話番号</label>
-                    <input type="tel" name="tel" value="{{ old('tel') }}">
+                    <div>
+                        <input type="tel" name="tel1" value="{{ old('tel1') }}" placeholder="090" maxlength="3" style="width: 60px;">
+                        -
+                        <input type="tel" name="tel2" value="{{ old('tel2') }}" placeholder="1234" maxlength="4" style="width: 80px;">
+                        -
+                        <input type="tel" name="tel3" value="{{ old('tel3') }}" placeholder="5678" maxlength="4" style="width: 80px;">
+                    </div>
                     @error('tel')<span class="error">{{ $message }}</span>@enderror
                 </div>
 
@@ -75,6 +81,13 @@
                     <input type="text" name="address" value="{{ old('address') }}">
                     @error('address')<span class="error">{{ $message }}</span>@enderror
                 </div>
+
+                <div>
+                    <label for="building">建物名</label>
+                    <input type="text" name="building" value="{{ old('building') }}">
+                    @error('building')<span class="error">{{ $message }}</span>@enderror
+                </div>
+
 
                 <div>
                     <label for="category_id">お問い合わせの種類</label>
