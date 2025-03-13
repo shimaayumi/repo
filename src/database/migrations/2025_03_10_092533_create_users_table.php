@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->string('password');
             $table->timestamps(); // created_at, updated_atカラムを追加
             $table->timestamp('email_verified_at')->nullable();
-          
         });
     }
 

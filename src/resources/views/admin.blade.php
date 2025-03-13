@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FashionablyLate</title>
+    <title>FashionablyLate - 検索結果</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/confirm.css') }}" />
 </head>
@@ -18,8 +18,6 @@
             </a>
         </div>
     </header>
-
-
 
     <!-- 検索フォーム -->
     <form method="GET" action="{{ route('admin.search') }}">
@@ -53,7 +51,21 @@
             <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
-                <td>{{ $user->gender }}</td>
+                <td>
+                    @switch($user->gender)
+                    @case(0)
+                    男性
+                    @break
+                    @case(1)
+                    女性
+                    @break
+                    @case(2)
+                    その他
+                    @break
+                    @default
+                    未指定
+                    @endswitch
+                </td>
                 <td>{{ $user->inquiry_type }}</td>
                 <td>{{ $user->created_at->format('Y-m-d') }}</td>
                 <td>
@@ -80,7 +92,21 @@
                 <div class="modal-body">
                     <p>名前: {{ $user->name }}</p>
                     <p>メールアドレス: {{ $user->email }}</p>
-                    <p>性別: {{ $user->gender }}</p>
+                    <p>性別:
+                        @switch($user->gender)
+                        @case(0)
+                        男性
+                        @break
+                        @case(1)
+                        女性
+                        @break
+                        @case(2)
+                        その他
+                        @break
+                        @default
+                        未指定
+                        @endswitch
+                    </p>
                     <p>お問い合わせ種類: {{ $user->inquiry_type }}</p>
                     <p>日付: {{ $user->created_at->format('Y-m-d') }}</p>
                 </div>
@@ -91,9 +117,6 @@
                         <button type="submit" class="btn btn-danger">削除</button>
                     </form>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-
-                   
-                    
                 </div>
             </div>
         </div>
@@ -103,7 +126,6 @@
     <!-- 必要なJavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
 
     <a href="{{ route('admin.export') }}" class="btn btn-primary">エクスポート</a>
 </body>

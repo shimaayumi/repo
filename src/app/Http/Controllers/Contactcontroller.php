@@ -9,42 +9,91 @@ use App\Http\Requests\ContactFormRequest;
 
 class ContactController extends Controller
 {
-    // 一覧表示
+    // 入力フォームを表示
     public function index()
     {
-        $contacts = Contact::with(['category', 'user'])->get();
-        return view('contacts.index', compact('contacts'));
-    }
-
-    // 入力フォームを表示
-    public function create()
-    {
+        // カテゴリーデータを取得してビューに渡す
         $categories = Category::all();
-        return view('contact.create', compact('categories'));
+        return view('index', compact('categories'));
     }
 
-    // データを保存
+    // データをバリデーションして確認画面へ
     public function store(ContactFormRequest $request)
     {
-        $data = $request->validated();
-        session()->put('contact_data', $data);  // セッションにデータを保存
-        return redirect()->route('contact.confirm');  // 確認画面にリダイレクト
+        $data = $request->validated();  // 入力データをバリデーション
+
+        // バリデーション済みデータをそのまま確認画面に渡す
+        return redirect()->route('contact.confirm')->withInput($data);
     }
 
     // 確認画面を表示
-    public function confirm()
+    public function confirm(Request $request)
     {
-        $data = session('contact_data'); // セッションからデータを取得
-        return view('contact.confirm', compact('data'));
+
+
+        // 入力データをそのまま受け取る
+        $data = $request->old();
+
+        // フォームから送信された category_id を取得
+        $categoryId = $data['category_id'];
+
+
+        // category_id に対応するカテゴリ名を取得
+        $category = Category::find($categoryId);
+
+        // category_id に対応するカテゴリ名を取得
+        
+        $categoryName = $category->content;
+
+      
+
+        // ビューに渡す
+        return view('confirm', [
+            'categoryName' => $categoryName,
+            'data' => $data,
+        ]);
+      
+
+       
+
+
     }
 
     // 送信処理
-    public function submit(ContactFormRequest $request)
+    public function submit(Request $request)
     {
-        $data = session('contact_data'); // セッションからデータを取得
-        Contact::create($data); // フォームデータを保存
-        session()->forget('contact_data'); // セッションからデータを削除
-        return redirect()->route('contact.thanks'); // 送信完了画面へリダイレクト
+        // 確認画面からhiddenデータを受け取る
+        $data = $request->only([
+            'first_name',
+            'last_name',
+            'gender',
+            'email',
+            'tel',
+            'address',
+            'category_id',
+            'detail'
+        ]);
+       
+        // フォームデータを保存
+        Contact::create($data);
+
+        // 送信完了画面へリダイレクト
+        return redirect()->route('contact.thanks');
+
+
+  
+       
+        
+       
+    }
+
+
+    
+
+    // 送信完了画面を表示
+    public function thanks()
+    {
+        return view('thanks');
     }
 
     // 検索機能
@@ -74,6 +123,8 @@ class ContactController extends Controller
 
         $results = $query->paginate(7);
 
-        return view('admin.contacts.index', compact('results'));
+        // ビューにresultsを渡す
+        return view('admin.contacts', compact('results'));
     }
+
 }

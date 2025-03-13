@@ -49,7 +49,10 @@ class AdminController extends Controller
             $query->where('email', 'like', '%' . $request->email . '%');
         }
         if ($request->filled('gender') && $request->gender !== 'all') {
-            $query->where('gender', $request->gender);
+            $genderValue = $request->gender == 'male' ? 0 : ($request->gender == 'female' ? 1 : 2);
+            $query->whereHas('contacts', function ($q) use ($genderValue) {
+                $q->where('gender', $genderValue);
+            });
         }
         if ($request->filled('inquiry_type')) {
             $query->where('inquiry_type', 'like', '%' . $request->inquiry_type . '%');
@@ -58,21 +61,9 @@ class AdminController extends Controller
             $query->whereDate('created_at', '=', $request->date);
         }
 
+        // ページネーション
         $users = $query->paginate(7);
 
-        return view('admin.search', compact('users'));
-    }
-
-    public function export()
-    {
-        return Excel::download(new UsersExport, 'users.xlsx');
-    }
-
-    public function delete($id)
-    {
-        $user = User::findOrFail($id);
-        $user->delete();
-
-        return redirect()->route('admin.index')->with('success', 'ユーザーが削除されました。');
+        return view('admin', compact('users'));
     }
 }

@@ -117,3 +117,7 @@ textarea:focus {
 form div:last-child {
     margin-bottom: 30px;
 }
+.error {
+    color: red;
+    font-size: 0.875em;
+}

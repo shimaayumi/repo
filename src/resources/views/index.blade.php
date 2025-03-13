@@ -24,69 +24,82 @@
             <div class="FashionablyLate__heading">
                 <h2>Contact</h2>
             </div>
-            <form action="{{ url('contact/confirm') }}" method="POST">
+
+            <!-- フォーム開始 -->
+            <form action="{{ route('contact.store') }}" method="POST">
                 @csrf
+
                 <div>
                     <label for="first_name">姓</label>
-                    <input type="text" name="first_name" id="first_name" value="{{ old('first_name') }}">
-                    @error('first_name') <span>{{ $message }}</span> @enderror
+                    <input type="text" name="first_name" value="{{ old('first_name') }}" required>
+                    @error('first_name')<span class="error">{{ $message }}</span>@enderror
                 </div>
 
                 <div>
                     <label for="last_name">名</label>
-                    <input type="text" name="last_name" id="last_name" value="{{ old('last_name') }}">
-                    @error('last_name') <span>{{ $message }}</span> @enderror
+                    <input type="text" name="last_name" value="{{ old('last_name') }}" required>
+                    @error('last_name')<span class="error">{{ $message }}</span>@enderror
                 </div>
 
                 <div>
                     <label for="gender">性別</label>
-                    <select name="gender" id="gender">
-                        <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>男性</option>
-                        <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>女性</option>
+
+                    <label>
+                        <input type="radio" name="gender" value="1" {{ old('gender') == '1' ? 'checked' : '' }}> 男性
+                    </label>
+                    <label>
+                        <input type="radio" name="gender" value="2" {{ old('gender') == '2' ? 'checked' : '' }}> 女性
+                    </label>
+                    <label>
+                        <input type="radio" name="gender" value="3" {{ old('gender') == '3' ? 'checked' : '' }}> その他
+                    </label>
                     </select>
-                    @error('gender') <span>{{ $message }}</span> @enderror
+                    @error('gender')<span class="error">{{ $message }}</span>@enderror
                 </div>
 
                 <div>
                     <label for="email">メールアドレス</label>
-                    <input type="email" name="email" id="email" value="{{ old('email') }}">
-                    @error('email') <span>{{ $message }}</span> @enderror
+                    <input type="email" name="email" value="{{ old('email') }}" required>
+                    @error('email')<span class="error">{{ $message }}</span>@enderror
                 </div>
 
                 <div>
                     <label for="tel">電話番号</label>
-                    <input type="tel" name="tel" id="tel" value="{{ old('tel') }}">
-                    @error('tel') <span>{{ $message }}</span> @enderror
+                    <input type="tel" name="tel" value="{{ old('tel') }}">
+                    @error('tel')<span class="error">{{ $message }}</span>@enderror
                 </div>
 
                 <div>
                     <label for="address">住所</label>
-                    <input type="text" name="address" id="address" value="{{ old('address') }}">
-                    @error('address') <span>{{ $message }}</span> @enderror
+                    <input type="text" name="address" value="{{ old('address') }}">
+                    @error('address')<span class="error">{{ $message }}</span>@enderror
                 </div>
 
                 <div>
                     <label for="category_id">お問い合わせの種類</label>
-                    <select name="category_id" id="category_id">
+                    <select name="category_id" required>
                         <option value="">選択してください</option>
                         @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->content }}</option>
+                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->content }}
+                        </option>
                         @endforeach
                     </select>
-                    @error('category_id') <span>{{ $message }}</span> @enderror
+                    @error('category_id')<span class="error">{{ $message }}</span>@enderror
                 </div>
 
                 <div>
                     <label for="detail">お問い合わせ内容</label>
-                    <textarea name="detail" id="detail">{{ old('detail') }}</textarea>
-                    @error('detail') <span>{{ $message }}</span> @enderror
+                    <textarea name="detail" required>{{ old('detail') }}</textarea>
+                    @error('detail')<span class="error">{{ $message }}</span>@enderror
                 </div>
 
-                <button type="submit">確認画面</button>
-            </form>
+                <!-- 確認画面へ進むボタン -->
+                <form action="{{ route('contact.submit') }}" method="POST">
+                    <button type="submit">確認画面へ</button>
+                </form>
         </div>
     </main>
-
 </body>
 
 </html>

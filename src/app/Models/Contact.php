@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Contact extends Model
 {
     use HasFactory;
-
+   
     protected $fillable = [
         'category_id',
         'user_id',
@@ -42,3 +42,4 @@ class Contact extends Model
         ]);
     }
 }
+ 
