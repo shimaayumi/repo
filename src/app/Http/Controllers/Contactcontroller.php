@@ -24,6 +24,7 @@ class ContactController extends Controller
     public function store(ContactFormRequest $request)
     {
         $data = $request->validated();
+        
 
         $validated = $request->validate([
             'tel1' => 'required|digits:3',
@@ -45,9 +46,14 @@ class ContactController extends Controller
 
     public function confirm(Request $request)
     {
+        // フォームから送信されたデータを取得
         $data = $request->old();
+
+        // 姓と名を結合して表示
+        $fullName = $data['last_name'] . ' ' . $data['first_name'];
+
         // フォームから送信された tel1, tel2, tel3 を結合
-        $tel = $data['tel1'] . $data['tel2']  . $data['tel3'];
+        $tel = $data['tel1'] . $data['tel2'] . $data['tel3'];
 
         // 結合された電話番号を $data に追加
         $data['tel'] = $tel;
@@ -60,8 +66,22 @@ class ContactController extends Controller
         $genderLabels = ['1' => '男性', '2' => '女性', '3' => 'その他'];
         $data['gender'] = $genderLabels[$data['gender']] ?? '不明';
 
-        return view('confirm', compact('categoryName', 'data'));
+        // 建物名を $data に追加
+        $building = $data['building'] ?? '未入力';
+        $data['building'] = $building;
+
+
+        // ビューに渡す
+        return view(
+            'confirm',
+            [
+                'fullName' => $fullName,  // $fullName をビューに渡す
+                'data' => $data,  // $data もビューに渡す
+                'categoryName' => $categoryName  // カテゴリ名もビューに渡す
+            ]
+        );
     }
+    
       
 
        

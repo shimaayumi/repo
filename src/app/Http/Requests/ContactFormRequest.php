@@ -23,6 +23,7 @@ class ContactFormRequest extends FormRequest
             'tel2' => 'required|digits_between:1,5', // 1桁以上5桁以下の数字
             'tel3' => 'required|digits_between:1,5', // 1桁以上5桁以下の数字
             'address' => 'required|string|max:255',
+            'building' => 'nullable|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'detail' => 'required|string|max:120',
         ];

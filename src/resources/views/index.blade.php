@@ -30,19 +30,21 @@
                 @csrf
 
                 <div>
-                    <label for="first_name">姓</label>
-                    <input type="text" name="first_name" value="{{ old('first_name') }}" required>
+                    <label for="name">お名前</label>
+                    <span class="label--required">※</span>
+                    <input type="text" name="first_name" value="{{ old('first_name') }}" placeholder="例:山田" required>
                     @error('first_name')<span class="error">{{ $message }}</span>@enderror
                 </div>
 
                 <div>
-                    <label for="last_name">名</label>
-                    <input type="text" name="last_name" value="{{ old('last_name') }}" required>
+
+                    <input type="text" name="last_name" value="{{ old('last_name') }}" placeholder="例:太郎" required>
                     @error('last_name')<span class="error">{{ $message }}</span>@enderror
                 </div>
 
                 <div>
                     <label for="gender">性別</label>
+                    <span class="label--required">※</span>
 
                     <label>
                         <input type="radio" name="gender" value="1" {{ old('gender', '1') == '1' ? 'checked' : '' }}> 男性
@@ -60,12 +62,14 @@
 
                 <div>
                     <label for="email">メールアドレス</label>
-                    <input type="email" name="email" value="{{ old('email') }}" required>
+                    <span class="label--required">※</span>
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="例:test@example.com" required>
                     @error('email')<span class="error">{{ $message }}</span>@enderror
                 </div>
 
                 <div>
                     <label for="tel">電話番号</label>
+                    <span class="label--required">※</span>
                     <div>
                         <input type="tel" name="tel1" value="{{ old('tel1') }}" placeholder="090" maxlength="3" style="width: 60px;">
                         -
@@ -78,19 +82,21 @@
 
                 <div>
                     <label for="address">住所</label>
-                    <input type="text" name="address" value="{{ old('address') }}">
+                    <span class="label--required">※</span>
+                    <input type="text" name="address" value="{{ old('address') }}" placeholder="例:東京都渋谷区千駄ヶ谷1-2-3">
                     @error('address')<span class="error">{{ $message }}</span>@enderror
                 </div>
 
                 <div>
                     <label for="building">建物名</label>
-                    <input type="text" name="building" value="{{ old('building') }}">
-                    @error('building')<span class="error">{{ $message }}</span>@enderror
+                    <input type="text" name="building" value="{{ old('building') }}" placeholder="例:千駄ヶ谷マンション101">
+                  
                 </div>
 
 
                 <div>
                     <label for="category_id">お問い合わせの種類</label>
+                    <span class="label--required">※</span>
                     <select name="category_id" required>
                         <option value="">選択してください</option>
                         @foreach ($categories as $category)
@@ -104,7 +110,8 @@
 
                 <div>
                     <label for="detail">お問い合わせ内容</label>
-                    <textarea name="detail" required>{{ old('detail') }}</textarea>
+                    <span class="label--required">※</span>
+                    <textarea name="detail" placeholder="お問合せ内容をご記載ください" required>{{ old('detail') }}</textarea>
                     @error('detail')<span class="error">{{ $message }}</span>@enderror
                 </div>
 
