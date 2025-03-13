@@ -26,18 +26,18 @@
 
         <div>
             <label>性別:</label>
+            <input type="hidden" name="gender" value="{{ $data['gender'] }}">
             <p>
-                @if ($data['gender'] === 1)
+                @if (old('gender') == '1')
                 男性
-                @elseif ($data['gender'] === 2)
+                @elseif (old('gender') == '2')
                 女性
-                @elseif ($data['gender'] === 3)
+                @elseif (old('gender') == '3')
                 その他
                 @else
                 不明
                 @endif
             </p>
-            <input type="hidden" name="gender" value="{{ $data['gender'] }}">
         </div>
 
         <div>
@@ -45,7 +45,7 @@
             <p>{{ $data['email'] }}</p>
             <input type="hidden" name="email" value="{{ $data['email'] }}">
         </div>
-        
+
         <div>
             <label>電話番号:</label>
             <p>{{ $data['tel'] }}</p>

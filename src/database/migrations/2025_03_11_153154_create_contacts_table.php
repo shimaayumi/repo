@@ -27,7 +27,8 @@ class CreateContactsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
 
-            $table->tinyInteger('gender');  // 性別 (1: 男性, 2: 女性, 3: その他)
+           
+            $table->tinyInteger('gender')->default(1)->change();
             $table->string('email');
             $table->string('tel');
             $table->string('address');
