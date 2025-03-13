@@ -24,7 +24,7 @@
 
         
 
-        <a href="{{ route('contact.thanks') }}" class="btn btn-primary">HOME</a>
+        <a href="{{ route('contact.index') }}" class="btn btn-primary">HOME</a>
     </div>
 </body>
 

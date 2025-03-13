@@ -19,6 +19,9 @@ Route::get('contact/confirm', [ContactController::class, 'confirm'])->name('cont
 Route::post('contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
 Route::get('contact/thanks', [ContactController::class, 'thanks'])->name('contact.thanks');
 
+
+
+
 // Fortify のログイン処理
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
 

@@ -15,7 +15,11 @@ class ContactController extends Controller
         // カテゴリーデータを取得してビューに渡す
         $categories = Category::all();
         return view('index', compact('categories'));
+
+   
     }
+
+   
 
     // データをバリデーションして確認画面へ
     public function store(ContactFormRequest $request)
@@ -79,16 +83,9 @@ class ContactController extends Controller
 
         // 送信完了画面へリダイレクト
         return redirect()->route('contact.thanks');
-
-
-  
-       
-        
-       
     }
 
-
-    
+   
 
     // 送信完了画面を表示
     public function thanks()
