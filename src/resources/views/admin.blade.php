@@ -34,14 +34,13 @@
                 <option value="3" {{ (int)request('gender') == 3 ? 'selected' : '' }}>その他</option>
             </select>
 
-            <select name="inquiry_type" class="form-control">
-                <option value="">お問い合わせの種類</option>
-                <option value="1">1.商品のお届けについて</option>
-                <option value="2">2.商品の交換について</option>
-                <option value="3">3.商品トラブル</option>
-                <option value="4">4.ショップへのお問い合わせ</option>
-                <option value="5">5.その他</option>
-
+            <select name="category_id" class="form-control" id="category_id">
+                <option value="">お問い合わせの種類を選択</option>
+                <option value="1" {{ request('category_id') == '1' ? 'selected' : '' }}>1.商品のお届けについて</option>
+                <option value="2" {{ request('category_id') == '2' ? 'selected' : '' }}>2.商品の交換について</option>
+                <option value="3" {{ request('category_id') == '3' ? 'selected' : '' }}>3.商品トラブル</option>
+                <option value="4" {{ request('category_id') == '4' ? 'selected' : '' }}>4.ショップへのお問い合わせ</option>
+                <option value="5" {{ request('category_id') == '5' ? 'selected' : '' }}>5.その他</option>
             </select>
             <input type="date" name="date" value="{{ request('date') }}">
 
