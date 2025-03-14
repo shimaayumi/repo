@@ -131,8 +131,6 @@
                 <div class="modal-body">
                     <p>お名前 {{ $user->name }}</p>
 
-
-
                     @if($user->contacts->isNotEmpty())
                     @php $contact = $user->contacts->first(); @endphp
                     <p>性別
@@ -151,8 +149,30 @@
                     <p>電話番号 {{ $contact->tel }}</p>
                     <p>住所 {{ $contact->address }}</p>
                     <p>建物名 {{ $contact->building_name }}</p>
-                    <p>お問い合わせ種類 {{ $contact->inquiry_type }}</p>
-                    <p>お問合せ内容 {{ $contact->inquiry_content }}</p>
+                    <!-- お問い合わせ種類をcategory_idに基づいて表示 -->
+                    <p>お問い合わせ種類:
+                        @switch($contact->category_id)
+                        @case(1)
+                        1.商品のお届けについて
+                        @break
+                        @case(2)
+                        2.商品の交換について
+                        @break
+                        @case(3)
+                        3.商品トラブル
+                        @break
+                        @case(4)
+                        4.ショップへのお問い合わせ
+                        @break
+                        @case(5)
+                        5.その他
+                        @break
+                        @default
+                        未設定
+                        @endswitch
+                    </p>
+
+                    <p>お問合せ内容 {{ $contact->detail }}</p>
                     @else
                     <p>連絡先情報がありません。</p>
                     @endif
@@ -162,10 +182,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">削除</button>
-
                     </form>
-                    </form>
-
                 </div>
             </div>
         </div>
