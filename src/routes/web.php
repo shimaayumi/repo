@@ -31,6 +31,7 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
 Route::delete('/admin/{user}', [AdminController::class, 'destroy'])->name('admin.delete');
 Route::get('/admin/export', [AdminController::class, 'export'])->name('admin.export');
+Route::delete('/admin/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 
 
 
@@ -39,5 +40,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // その他のルート
 
     // ユーザー削除用のルート
-    Route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('delete');
+    Route::delete('/admin/delete/{user}', [AdminController::class, 'destroy'])->name('admin.delete');
 });

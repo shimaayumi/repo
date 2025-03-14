@@ -99,7 +99,7 @@
                 </td>
                 <td>
                     @if($user->contacts->isNotEmpty())
-                    {{ $contact->inquiry_type }}
+                    {{ $user->contacts->first()->category->content }} <!-- 最初のcontactのcategoryのcontentを表示 -->
                     @else
                     未設定
                     @endif
@@ -163,6 +163,8 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">削除</button>
+
+                    </form>
                     </form>
 
                 </div>
