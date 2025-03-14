@@ -26,9 +26,7 @@ class CreateContactsTable extends Migration
             // 基本情報
             $table->string('first_name');
             $table->string('last_name');
-
-           
-            $table->tinyInteger('gender')->default(1)->change();
+            $table->tinyInteger('gender');
             $table->string('email');
             $table->string('tel');
             $table->string('address');

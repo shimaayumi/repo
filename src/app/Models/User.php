@@ -17,4 +17,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Contact::class);
     }
+
+    // categoryとの1対1リレーションを追加
+    public function category()
+    {
+        return $this->belongsTo(Category::class); // User は Category を持つ
+    }
 }
+

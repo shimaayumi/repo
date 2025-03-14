@@ -28,18 +28,16 @@ class Contact extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function category()
+
+ public function category()
     {
-        return $this->belongsTo(Category::class)->withDefault([
-            'content' => '未分類',
-        ]);
+        return $this->belongsTo(Category::class);
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'name' => 'ゲストユーザー',
-        ]);
+        return $this->belongsTo(User::class);
     }
+   
 }
  

@@ -27,10 +27,13 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('l
 
 
 
+Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
+Route::delete('/admin/{user}', [AdminController::class, 'destroy'])->name('admin.delete');
 Route::get('/admin/export', [AdminController::class, 'export'])->name('admin.export');
 
-Route::get('/admin', [AdminController::class, 'index']); // 追加：/admin にアクセスしたときに index メソッドを呼び出す
+
+
 
 Route::prefix('admin')->name('admin.')->group(function () {
     // その他のルート

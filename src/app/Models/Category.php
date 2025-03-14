@@ -16,4 +16,10 @@ public function contacts()
 {
 return $this->hasMany(Contact::class);
 }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
 }
