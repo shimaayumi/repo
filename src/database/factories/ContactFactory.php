@@ -11,7 +11,7 @@ class ContactFactory extends Factory
 public function definition()
 {
 return [
-'category_id' => Category::factory(),
+'category_id' => $this->faker->numberBetween(1, 5),
 'user_id' => User::factory(),
 'first_name' => $this->faker->firstName(),
 'last_name' => $this->faker->lastName(),

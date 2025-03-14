@@ -29,11 +29,18 @@ class AdminController extends Controller
             });
         }
         // 🔍 お問い合わせ種類検索
-        if ($request->filled('inquiry_type')) {
+        if ($request->filled('category_id')) {
             $query->whereHas('contacts', function ($q) use ($request) {
-                $q->where('inquiry_type', 'like', '%' . $request->inquiry_type . '%');
+                // contacts テーブルの 'category_id' を使ってフィルタリング
+                $q->where('category_id', $request->category_id);
             });
         }
+
+          
+
+            
+        
+        
         if ($request->filled('date')) {
             $query->whereDate('created_at', $request->date);
         }
@@ -41,20 +48,19 @@ class AdminController extends Controller
         // ページネーション
         $users = $query->paginate(7);
 
-        $contacts = Contact::all();
-        foreach ($contacts as $contact) {
-           
+      
 
-        }
+        // contacts変数をビューに渡す
+        $contacts = Contact::all();
 
         // ビューにデータを渡す
         return view('admin', compact('users', 'contacts'));  // ここでcontactsもビューに渡す
-    
-    }
 
+
+    }
     // 検索処理
-    public function search(Request $request)
-    {
+    public function search(Request $request) {
         return $this->index($request); // 検索も index の処理を使い回せる！
     }
+
 }

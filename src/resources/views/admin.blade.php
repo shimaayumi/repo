@@ -36,11 +36,11 @@
 
             <select name="inquiry_type" class="form-control">
                 <option value="">お問い合わせの種類</option>
-                <option value="問い合わせの種類1">1.商品のお届けについて</option>
-                <option value="問い合わせの種類2">2.商品の交換について</option>
-                <option value="問い合わせの種類3">3.商品トラブル</option>
-                <option value="問い合わせの種類4">4.ショップへのお問い合わせ</option>
-                <option value="問い合わせの種類5">5.その他</option>
+                <option value="1">1.商品のお届けについて</option>
+                <option value="2">2.商品の交換について</option>
+                <option value="3">3.商品トラブル</option>
+                <option value="4">4.ショップへのお問い合わせ</option>
+                <option value="5">5.その他</option>
 
             </select>
             <input type="date" name="date" value="{{ request('date') }}">
