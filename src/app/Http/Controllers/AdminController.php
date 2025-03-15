@@ -15,21 +15,27 @@ class AdminController extends Controller
         // Contactモデルを基にクエリビルダーを構築
         $query = Contact::query()->with('category'); // contacts テーブルと category リレーションを一度に取得
 
-        // 検索条件があれば、その条件に応じて絞り込む
-        if ($request->filled('name')) {
-            $query->where('name', 'like', '%' . $request->name . '%');
+        // 名前やメールアドレスで検索
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                // Contact テーブルの first_name と last_name を検索対象にする
+                $q->where('first_name', 'like', '%' . $search . '%')
+                    ->orWhere('last_name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%');
+            });
         }
-        if ($request->filled('email')) {
-            $query->where('email', 'like', '%' . $request->email . '%');
+
+        // 🔍 性別検索（全ての場合はフィルタしない）
+        if ($request->filled('gender') && $request->gender !== '0') {
+            $query->where('gender', $request->gender);
         }
-        // 🔍 性別検索
-        if ($request->filled('gender') && $request->gender !== 'all') {
-            $query->where('gender', (int) $request->gender); // genderをintにキャスト
-        }
+
         // 🔍 お問い合わせ種類検索
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }
+
         // 🔍 日付検索
         if ($request->filled('date')) {
             $query->whereDate('created_at', $request->date);

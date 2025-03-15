@@ -23,15 +23,16 @@
     <!-- 検索フォーム -->
     <form method="GET" action="{{ route('admin') }}">
         <div class="search-form">
-            <input type="text" name="name" placeholder="名前" value="{{ request('name') }}">
-            <input type="text" name="email" placeholder="メールアドレス" value="{{ request('email') }}">
 
-            <!-- 性別選択 -->
-            <select name="gender">
-                <option value="">全て</option>
-                <option value="1" {{ (int)request('gender') == 1 ? 'selected' : '' }}>男性</option>
-                <option value="2" {{ (int)request('gender') == 2 ? 'selected' : '' }}>女性</option>
-                <option value="3" {{ (int)request('gender') == 3 ? 'selected' : '' }}>その他</option>
+            <!-- 名前とメールアドレスを一つにまとめる -->
+            <input type="text" name="search" placeholder="名前やメールアドレスを入力してください" value="{{ request('search') }}">
+
+            <select name="gender" class="form-control">
+                <option value="">性別</option>
+                <option value="0" {{ request('gender') == '0' ? 'selected' : '' }}>全て</option>
+                <option value="1" {{ request('gender') == '1' ? 'selected' : '' }}>男性</option>
+                <option value="2" {{ request('gender') == '2' ? 'selected' : '' }}>女性</option>
+                <option value="3" {{ request('gender') == '3' ? 'selected' : '' }}>その他</option>
             </select>
 
             <select name="category_id" class="form-control" id="category_id">
