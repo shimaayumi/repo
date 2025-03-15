@@ -5,6 +5,8 @@ use App\Http\Controllers\AdminController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Fortify;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
 
 // Fortify のログイン・登録・パスワードリセット画面を設定
 Fortify::loginView(fn() => view('auth.login'));
@@ -15,30 +17,34 @@ Fortify::resetPasswordView(fn() => view('auth.passwords.reset'));
 Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('contact/store', [ContactController::class, 'store'])->name('contact.store');
 Route::get('contact/confirm', [ContactController::class, 'confirm'])->name('contact.confirm');
-
 Route::post('contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
 Route::get('contact/thanks', [ContactController::class, 'thanks'])->name('contact.thanks');
 
 
+Route::get('auth/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('auth/register', [RegisterController::class, 'store'])->name('register.store');; // 登録後にログイン画面に遷移します
+Route::post('auth/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
 
+// ログインフォーム表示
+Route::get('auth/login', [LoginController::class, 'showLoginForm'])->name('login');
 
-// Fortify のログイン処理
-Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
+// ログイン処理
+Route::post('auth/login', [LoginController::class, 'store'])->name('login.store');
 
+// ログアウト処理
+Route::post('auth/logout', [LoginController::class, 'logout'])->name('logout');
 
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
 
-Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-Route::get('/admin/search', [AdminController::class, 'search'])->name('admin.search');
-Route::delete('/admin/{user}', [AdminController::class, 'destroy'])->name('admin.delete');
-Route::get('/admin/export', [AdminController::class, 'export'])->name('admin.export');
-Route::delete('/admin/{id}', [AdminController::class, 'delete'])->name('admin.delete');
-
-
-
-
+// 管理者関連のルート
 Route::prefix('admin')->name('admin.')->group(function () {
-    // その他のルート
-
-    // ユーザー削除用のルート
-    Route::delete('/admin/delete/{user}', [AdminController::class, 'destroy'])->name('admin.delete');
+    Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/search', [AdminController::class, 'search'])->name('search');
+    Route::delete('/{user}', [AdminController::class, 'destroy'])->name('delete-user'); // ユーザー削除
+    Route::get('/export', [AdminController::class, 'export'])->name('export');
 });
+
+
+
+// 管理画面のルート
+Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');

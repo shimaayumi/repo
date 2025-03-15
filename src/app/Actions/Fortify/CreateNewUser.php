@@ -19,7 +19,8 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
-        Validator::make($input, [
+        // バリデーション実行
+        $validator = Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => [
                 'required',
@@ -28,9 +29,13 @@ class CreateNewUser implements CreatesNewUsers
                 'max:255',
                 Rule::unique(User::class),
             ],
-            'password' => $this->passwordRules(),
-        ])->validate();
+            'password' => ['required', 'string', 'max:255'], // パスワードのバリデーションを強化
+        ]);
 
+        // バリデーションエラーがあればスロー
+        $validator->validate();
+
+        // バリデーションを通過したらユーザーを作成
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],

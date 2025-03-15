@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Models\User;
+use Laravel\Fortify\Actions\CreateNewUser;
+use Laravel\Fortify\Fortify;
 
 class RegisterController extends Controller
 {
@@ -15,7 +16,7 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-    public function register(RegisterRequest $request)
+    public function store(RegisterRequest $request)
     {
         $validated = $request->validated();
 
@@ -26,10 +27,7 @@ class RegisterController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        // ログイン処理
-        auth()->login($user);
-
-        // ログイン後、ホームにリダイレクト
-        return redirect()->route('home');
+        // 登録が完了したらログイン画面にリダイレクト
+        return redirect()->route('login'); // ここでログイン画面にリダイレクトします
     }
 }

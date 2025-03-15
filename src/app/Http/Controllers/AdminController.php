@@ -12,6 +12,8 @@ class AdminController extends Controller
     // /admin ルート用のインデックスメソッド
     public function index(Request $request)
     {
+
+        
         // ユーザーと関連データ (contacts -> category) を一度に取得
         $query = User::with('contacts.category');
 
@@ -72,4 +74,7 @@ class AdminController extends Controller
         // 削除後に管理画面にリダイレクト
         return redirect()->route('admin')->with('success', 'ユーザーが削除されました。');
     }
+
+
+   
 }

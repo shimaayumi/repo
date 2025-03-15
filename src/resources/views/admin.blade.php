@@ -178,7 +178,7 @@
                     @endif
                 </div>
                 <div class="modal-footer">
-                    <form method="POST" action="{{ route('admin.delete', $user->id) }}">
+                    <form method="POST" action="{{ route('admin.delete-user', $user->id) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">削除</button>

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth;  // 修正: 名前空間を一度だけ定義
+
+
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -26,7 +27,7 @@ class LoginController extends Controller
      * @param \App\Http\Requests\LoginRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function login(LoginRequest $request)
+    public function store(LoginRequest $request)
     {
         // バリデーション済みデータを取得
         $validated = $request->validated();
@@ -34,7 +35,7 @@ class LoginController extends Controller
         // ユーザー認証を試みる
         if (Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']], $request->remember)) {
             // ログイン成功後のリダイレクト
-            return redirect()->intended(route('admin.dashboard'));  // 管理画面などにリダイレクト
+            return redirect()->intended(route('admin'));  // 管理画面にリダイレクト
         }
 
         // ログイン失敗した場合

@@ -16,7 +16,7 @@
 
     <div class="login-container">
         <h2>Login</h2>
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login.store') }}"> <!-- 修正: login.store に変更 -->
             @csrf
             <!-- メールアドレス -->
             <div>
@@ -42,7 +42,7 @@
                 </label>
             </div>
 
-            <button type="submit">ログイン</button>
+            <button type="submit">ログイン</button> <!-- 修正: ボタンのラベルをログインに変更 -->
         </form>
     </div>
 </body>
