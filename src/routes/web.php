@@ -44,7 +44,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/export', [AdminController::class, 'export'])->name('export');
 });
 
-
+Route::delete('/admin/contact/{contact}', [AdminController::class, 'destroyContact'])->name('admin.delete-contact');
 
 // 管理画面のルート
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');

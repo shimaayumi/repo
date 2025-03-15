@@ -67,18 +67,14 @@
                 <th>メールアドレス</th>
                 <th>性別</th>
                 <th>お問い合わせ種類</th>
-
-
             </tr>
         </thead>
         <tbody>
-            @foreach ($users as $user)
+            @foreach ($contacts as $contact)
             <tr>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
+                <td>{{ $contact->last_name }} {{ $contact->first_name }}</td>
+                <td>{{ $contact->email }}</td>
                 <td>
-                    @if($user->contacts->isNotEmpty())
-                    @php $contact = $user->contacts->first(); @endphp
                     @switch($contact->gender)
                     @case(1)
                     男性
@@ -92,20 +88,16 @@
                     @default
                     未設定
                     @endswitch
+                </td>
+                <td>
+                    @if($contact->category)
+                    {{ $contact->category->content }} <!-- contactのcategoryのcontentを表示 -->
                     @else
                     未設定
                     @endif
                 </td>
                 <td>
-                    @if($user->contacts->isNotEmpty())
-                    {{ $user->contacts->first()->category->content }} <!-- 最初のcontactのcategoryのcontentを表示 -->
-                    @else
-                    未設定
-                    @endif
-                </td>
-
-                <td>
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#userModal{{ $user->id }}">
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#userModal{{ $contact->id }}">
                         詳細
                     </button>
                 </td>
@@ -114,71 +106,54 @@
         </tbody>
     </table>
 
-    {{ $users->links() }}
+    {{ $contacts->links() }}
 
     <!-- エクスポートボタン -->
     <a href="{{ route('admin.export') }}" class="btn btn-success">エクスポート</a>
 
     <!-- モーダルウィンドウ -->
-    @foreach ($users as $user)
-    <div class="modal fade" id="userModal{{ $user->id }}" tabindex="-1" aria-labelledby="userModalLabel{{ $user->id }}" aria-hidden="true">
+    @foreach ($contacts as $contact)
+    <div class="modal fade" id="userModal{{ $contact->id }}" tabindex="-1" aria-labelledby="userModalLabel{{ $contact->id }}" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="userModalLabel{{ $user->id }}">詳細: {{ $user->name }}</h5>
+                    <h5 class="modal-title" id="userModalLabel{{ $contact->id }}">詳細: {{ $contact->name }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
                 </div>
                 <div class="modal-body">
-                    <p>お名前 {{ $user->name }}</p>
-
-                    @if($user->contacts->isNotEmpty())
-                    @php $contact = $user->contacts->first(); @endphp
+                    <p>お名前 {{ $contact->last_name }} {{ $contact->first_name }}</p>
                     <p>性別
-                        @if($contact->gender === 1)
-                        男性
-                        @elseif($contact->gender === 2)
-                        女性
-                        @elseif($contact->gender === 3)
-                        その他
-                        @else
-                        未設定
-                        @endif
-                    </p>
 
-                    <p>メールアドレス {{ $user->email }}</p>
-                    <p>電話番号 {{ $contact->tel }}</p>
-                    <p>住所 {{ $contact->address }}</p>
-                    <p>建物名 {{ $contact->building_name }}</p>
-                    <!-- お問い合わせ種類をcategory_idに基づいて表示 -->
-                    <p>お問い合わせ種類:
-                        @switch($contact->category_id)
+                        @switch($contact->gender)
                         @case(1)
-                        1.商品のお届けについて
+                        男性
                         @break
                         @case(2)
-                        2.商品の交換について
+                        女性
                         @break
                         @case(3)
-                        3.商品トラブル
-                        @break
-                        @case(4)
-                        4.ショップへのお問い合わせ
-                        @break
-                        @case(5)
-                        5.その他
+                        その他
                         @break
                         @default
                         未設定
                         @endswitch
                     </p>
 
-                    <p>お問合せ内容 {{ $contact->detail }}</p>
+                    <p>メールアドレス {{ $contact->email }}</p>
+                    <p>電話番号 {{ $contact->tel }}</p>
+                    <p>住所 {{ $contact->address }}</p>
+                    <p>建物名 {{ $contact->building }}</p>
+
+                    @if($contact->category)
+                    <p>お問い合わせ種類: {{ $contact->category->content }}</p>
                     @else
-                    <p>連絡先情報がありません。</p>
+                    <p>お問い合わせ種類: 未設定</p>
                     @endif
+
+                    <p>お問合せ内容 {{ $contact->detail }}</p>
                 </div>
                 <div class="modal-footer">
-                    <form method="POST" action="{{ route('admin.delete-user', $user->id) }}">
+                    <form method="POST" action="{{ route('admin.delete-contact', $contact->id) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">削除</button>

@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id(); // 主キー
-            $table->string('content')->unique(); // カテゴリー名（重複禁止）
+            $table->string('content'); 
             $table->timestamps();
         });
     }

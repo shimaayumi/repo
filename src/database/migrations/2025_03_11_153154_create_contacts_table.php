@@ -21,7 +21,7 @@ class CreateContactsTable extends Migration
        
 
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
+           
 
             // 基本情報
             $table->string('first_name');

@@ -12,16 +12,6 @@ class User extends Authenticatable
 
     protected $fillable = ['name', 'email', 'password'];
 
-    // contactsテーブルとの1対多リレーション
-    public function contacts()
-    {
-        return $this->hasMany(Contact::class);
-    }
-
-    // categoryとの1対1リレーションを追加
-    public function category()
-    {
-        return $this->belongsTo(Category::class); // User は Category を持つ
-    }
+ 
 }
 
