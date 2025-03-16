@@ -21,6 +21,7 @@ Route::post('/contact/submit', [ContactController::class, 'submit'])->name('cont
 Route::get('/contact/thanks', [ContactController::class, 'thanks'])->name('contact.thanks');
 
 
+
 Route::get('auth/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('auth/register', [RegisterController::class, 'store'])->name('register.store');; // 登録後にログイン画面に遷移します
 Route::post('auth/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');

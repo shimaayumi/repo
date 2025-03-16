@@ -16,23 +16,26 @@
 
     <div class="login-container">
         <h2>Login</h2>
-        <form method="POST" action="{{ route('login.store') }}"> <!-- 修正: login.store に変更 -->
+
+       
+
+        <form method="POST" action="{{ route('login.store') }}">
             @csrf
             <!-- メールアドレス -->
             <div>
                 <label for="email">メールアドレス</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" required>
+                <input type="email" name="email" id="email" value="{{ old('email') }}">
                 @error('email')
-                <p class="error">{{ $message }}</p>
+                <span>{{ $message }}</span>
                 @enderror
             </div>
 
             <!-- パスワード -->
             <div>
                 <label for="password">パスワード</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" name="password" id="password">
                 @error('password')
-                <p class="error">{{ $message }}</p>
+                <span>{{ $message }}</span>
                 @enderror
             </div>
 
@@ -42,9 +45,8 @@
                 </label>
             </div>
 
-            <button type="submit">ログイン</button> <!-- 修正: ボタンのラベルをログインに変更 -->
+            <button type="submit">ログイン</button>
         </form>
-    </div>
 </body>
 
 </html>
