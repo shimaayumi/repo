@@ -6,6 +6,10 @@ use App\Models\User;
 use App\Models\Contact;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\User as UserModel;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ContactsExport; // ここでインポート
+
 
 class AdminController extends Controller
 {
@@ -64,4 +68,53 @@ class AdminController extends Controller
     }
 
    
+
+
+
+
+   
+       public function export(Request $request)
+    {
+        // フォームから送信された検索条件を取得
+        $search = $request->input('search');
+        $gender = $request->input('gender');
+        $category_id = $request->input('category_id');
+        $date = $request->input('date');
+
+        // データベースから条件に一致するデータを絞り込み
+        $contacts = Contact::query();
+
+        // 名前やメールアドレスによる検索
+        if ($search) {
+            $contacts->where(function($query) use ($search) {
+                $query->where('first_name', 'like', "%{$search}%")
+                      ->orWhere('last_name', 'like', "%{$search}%")
+                      ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        // 性別でフィルタリング
+        if ($gender !== null) {
+            $contacts->where('gender', $gender);
+        }
+
+        // カテゴリーでフィルタリング
+        if ($category_id) {
+            $contacts->where('category_id', $category_id);
+        }
+
+        // 日付でフィルタリング
+        if ($date) {
+            $contacts->whereDate('created_at', $date);
+        }
+
+        // 絞り込んだデータを取得
+        $contacts = $contacts->get();
+
+        // エクスポート
+        return Excel::download(new ContactsExport($contacts), 'contacts.csv');
+    }
 }
+
+ 
+   

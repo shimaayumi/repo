@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AdminController;
+
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Fortify;
@@ -61,3 +62,4 @@ Route::get('contact/{id}/edit', [ContactController::class, 'edit'])->name('conta
 Route::put('contact/{id}', [ContactController::class, 'update'])->name('contact.update');
 
 Route::get('/index', [ContactController::class, 'index'])->name('index');
+Route::get('/admin/export', [AdminController::class, 'export'])->name('admin.export');

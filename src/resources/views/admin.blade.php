@@ -68,6 +68,7 @@
                 <th>メールアドレス</th>
                 <th>性別</th>
                 <th>お問い合わせ種類</th>
+                <th>操作</th>
             </tr>
         </thead>
         <tbody>
@@ -110,7 +111,7 @@
     {{ $contacts->links() }}
 
     <!-- エクスポートボタン -->
-    <a href="{{ route('admin.export') }}" class="btn btn-success">エクスポート</a>
+    <a href="{{ route('admin.export', request()->query()) }}" class="btn btn-success">エクスポート</a>
 
     <!-- モーダルウィンドウ -->
     @foreach ($contacts as $contact)
@@ -118,13 +119,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="userModalLabel{{ $contact->id }}">詳細: {{ $contact->name }}</h5>
+                    <h5 class="modal-title" id="userModalLabel{{ $contact->id }}">詳細: {{ $contact->last_name }} {{ $contact->first_name }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
                 </div>
                 <div class="modal-body">
-                    <p>お名前 {{ $contact->last_name }} {{ $contact->first_name }}</p>
-                    <p>性別
-
+                    <p>お名前: {{ $contact->last_name }} {{ $contact->first_name }}</p>
+                    <p>性別:
                         @switch($contact->gender)
                         @case(1)
                         男性
@@ -140,10 +140,10 @@
                         @endswitch
                     </p>
 
-                    <p>メールアドレス {{ $contact->email }}</p>
-                    <p>電話番号 {{ $contact->tel }}</p>
-                    <p>住所 {{ $contact->address }}</p>
-                    <p>建物名 {{ $contact->building }}</p>
+                    <p>メールアドレス: {{ $contact->email }}</p>
+                    <p>電話番号: {{ $contact->tel }}</p>
+                    <p>住所: {{ $contact->address }}</p>
+                    <p>建物名: {{ $contact->building }}</p>
 
                     @if($contact->category)
                     <p>お問い合わせ種類: {{ $contact->category->content }}</p>
@@ -151,17 +151,14 @@
                     <p>お問い合わせ種類: 未設定</p>
                     @endif
 
-                    <p>お問合せ内容 {{ $contact->detail }}</p>
+                    <p>お問合せ内容: {{ $contact->detail }}</p>
                 </div>
                 <div class="modal-footer">
-
-
                     <form method="POST" action="{{ route('admin.delete-contact', $contact->id) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">削除</button>
                     </form>
-
                 </div>
             </div>
         </div>
