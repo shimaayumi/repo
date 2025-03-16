@@ -1,69 +1,56 @@
-/* thanks.css */
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
+/* 背景に'Thank You'を追加 */
+.container::before {
+    content: 'Thank You';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18vw;
+    color: rgba(122, 83, 83, 0.05);
+    font-family: "Noto Serif JP", serif;
+    white-space: nowrap;
+    z-index: -1;
+    user-select: none;
+    pointer-events: none;
 }
 
-.header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-}
-
-.header__logo {
-    color: #fff;
-    font-size: 24px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
+/* 全体中央寄せ */
 .container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    /* 縦並びに変更 */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
+/* h2タグのスタイル */
 h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-p {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: #fff;
-    font-size: 16px;
+    position: relative;
+    font-size: 24px;
+    color: #846f6f;
+    z-index: 2;
+    font-family: 'Arial', sans-serif;
     text-align: center;
+    margin-bottom: 20px;
+    /* 下に余白を追加 */
+}
+
+/* ホームボタンのスタイル */
+.home-button {
+    display: inline-block;
+    padding: 5px 20px;
+    background-color: #846f6f;
+    color: #fff;
     text-decoration: none;
-    border-radius: 5px;
+ 
+    font-size: 18px;
+    font-family: 'Arial', sans-serif;
     transition: background-color 0.3s ease;
+    z-index: 2;
 }
 
-.btn:hover {
-    background-color: #45a049;
-}
-
-a {
-    text-decoration: none;
-}
-
-.btn-primary {
-    margin-top: 20px;
+/* ホバー時のエフェクト */
+.home-button:hover {
+    background-color: #524346;
 }

@@ -2,78 +2,101 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <title>確認画面</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FashionablyLate</title>
+    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/confirm.css') }}" />
 </head>
 
 <body>
-    <h2>確認画面</h2>
 
-    <form action="{{ route('contact.submit') }}" method="POST">
-        @csrf
-
-        <div>
-            <p>お名前: {{ $data['fullName'] }}</p>
+    <header class="header">
+        <div class="header__inner">
+            <a class="header__logo" href="/">
+                FashionablyLate
+            </a>
         </div>
+    </header>
 
-        <div>
-            <p>性別:
-                @switch($data['gender'])
-                @case(1)
-                男性
-                @break
-                @case(2)
-                女性
-                @break
-                @case(3)
-                その他
-                @break
-                @default
-                不明
-                @endswitch
-            </p>
-        </div>
+    <main>
+        <h2>Confirm</h2>
 
-        <div>
-            <label>メールアドレス</label>
-            <p>{{ $data['email'] }}</p>
-            <input type="hidden" name="email" value="{{ $data['email'] }}">
-        </div>
+        <form action="{{ route('contact.submit') }}" method="POST">
+            @csrf
 
-        <div>
-            <label>電話番号</label>
-            <p>{{ $data['tel'] }}</p>
-            <input type="hidden" name="tel" value="{{ $data['tel'] }}">
-        </div>
+            <table>
+                <tr>
+                    <th>お名前</th>
+                    
+                    <td>{{$data['fullName']}}</td>
+                    </td>
+                </tr>
 
-        <div>
-            <label>住所</label>
-            <p>{{ $data['address'] }}</p>
-            <input type="hidden" name="address" value="{{ $data['address'] }}">
-        </div>
+                <tr>
+                    <th>性別</th>
+                    <td>
+                        @switch($data['gender'])
+                        @case(1)
+                        男性
+                        @break
+                        @case(2)
+                        女性
+                        @break
+                        @case(3)
+                        その他
+                        @break
+                        @default
+                        不明
+                        @endswitch
+                    </td>
+                </tr>
 
-        <div>
-            <label for="building">建物名</label>
-            <p>{{ $data['building'] ?? '未入力' }}</p> <!-- 確認画面で表示用 -->
-            <input type="hidden" name="building" value="{{ $data['building'] ?? '' }}"> <!-- データ送信用 -->
-        </div>
+                <tr>
+                    <th>メールアドレス</th>
+                    <td>{{ $data['email'] }}</td>
+                    <input type="hidden" name="email" value="{{ $data['email'] }}">
+                </tr>
 
-        <div>
-            <label>お問い合わせの種類</label>
-            <p>{{ $categoryName ?? '未選択' }}</p> <!-- 未選択の場合も表示 -->
-            <input type="hidden" name="category_id" value="{{ $data['category_id'] ?? '' }}"> <!-- データ送信用 -->
-        </div>
+                <tr>
+                    <th>電話番号</th>
+                    <td>{{ $data['tel'] }}</td>
+                    <input type="hidden" name="tel" value="{{ $data['tel'] }}">
+                </tr>
 
-        <div>
-            <label>お問い合わせ内容:</label>
-            <p>{{ $data['detail'] }}</p>
-            <input type="hidden" name="detail" value="{{ $data['detail'] }}">
-        </div>
+                <tr>
+                    <th>住所</th>
+                    <td>{{ $data['address'] }}</td>
+                    <input type="hidden" name="address" value="{{ $data['address'] }}">
+                </tr>
 
-        <button type="submit">送信</button>
-        <a href="{{ route('index') }}" class="btn btn-secondary">修正</a>
-    </form>
+                <tr>
+                    <th>建物名</th>
+                    <td>{{ $data['building'] ?? '未入力' }}</td>
+                    <input type="hidden" name="building" value="{{ $data['building'] ?? '' }}">
+                </tr>
 
+                <tr>
+                    <th>お問い合わせの種類</th>
+                    <td>{{ $categoryName ?? '未選択' }}</td>
+                    <input type="hidden" name="category_id" value="{{ $data['category_id'] ?? '' }}">
+
+                </tr>
+
+                <tr>
+                    <th>お問い合わせ内容</th>
+                    <td>{{ $data['detail'] }}</td>
+                    <input type="hidden" name="detail" value="{{ $data['detail'] }}">
+                </tr>
+            </table>
+
+            <div>
+                <button type="submit">送信</button>
+                <a href="{{ route('index') }}" class="btn btn-secondary">修正</a>
+            </div>
+        </form>
+    </main>
 </body>
 
 </html>

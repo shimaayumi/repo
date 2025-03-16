@@ -1,118 +1,208 @@
-/* index.css */
+.header {
 
+    border-bottom: 1px solid #d7cece;
+    /* ヘッダー下に線を引く */
+}
+
+.header__inner {
+
+    padding: 10px;
+
+    text-align: center;
+}
+
+
+.header__logo {
+    color: #866d6d;
+    font-size: 36px;
+    text-decoration: none;
+    font-family: 'Times New Roman', serif;
+    text-align: center;
+}
+    
+
+
+
+.container {
+    max-width: 1280px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #fff;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #866d6d;
+    text-align: center;
+    font-family: 'Times New Roman', serif;
+  
+}
 /* Body */
 body {
+    width: 100%;
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     margin: 0;
     padding: 0;
-    color: #333;
-}
-
-/* Header */
-.header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-}
-
-.header__logo {
-    color: #fff;
-    font-size: 24px;
-    text-decoration: none;
-    font-weight: bold;
+    color: #6e6262;
 }
 
 /* Main content */
 main {
-    padding: 30px;
-    max-width: 800px;
+   
+    width: 60%;
     margin: 0 auto;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.FashionablyLate__heading h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
-    color: #333;
-    text-align: center;
-}
-
-/* Form Styling */
-form {
+/* ラベルと入力欄を横並び */
+.form-group {
     display: flex;
-    flex-direction: column;
-}
-
-form div {
-    margin-bottom: 15px;
-}
-
-label {
-    font-size: 16px;
-    display: block;
-    margin-bottom: 5px;
-    color: #555;
-}
-
-input,
-select,
-textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    margin-top: 5px;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-select,
-textarea {
-    font-size: 16px;
-}
-
-
-
-/* Button */
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    margin-top: 20px;
-    align-self: center;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-button:focus {
-    outline: none;
-}
-
-/* Form element focus */
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: #4CAF50;
-    outline: none;
-}
-
-/* Spacing and padding */
-form div:last-child {
+    flex-wrap: wrap;
+   
+    /* ラベルと入力欄が横並びで収まらない場合、改行する */
     margin-bottom: 30px;
+    align-items: center;
+   
 }
+
+/* ラベルのスタイル */
+.form-group label {
+    
+    width: 200px;
+    /* ラベル幅を固定 */
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+/* 必須マーク（※） */
+.label--required {
+    color: rgb(219, 90, 90);
+    font-size: 0.8em;
+    margin-left: 3px;
+}
+
+/* 入力欄の幅を統一 */
+
+.form-group input[type="email"],
+.form-group input[type="address"],
+.form-group input[type="building"],
+.form-group select {
+    width: 70%;
+    height: 30px;
+    background-color: #f0eded;
+
+    /* ✅枠線を消す */
+    border: none;
+    outline: none;
+    padding: 5px;
+}
+
+
+.form-group input[type="text"] {
+     width: 34%;
+     height: 30px;
+     background-color: #f0eded;
+     margin-right: 20px;
+
+     /* ✅枠線を消す */
+     border: none;
+     outline: none;
+     padding: 5px;
+ }
+
+ .form-group input[type="tel"] {
+     width: 13.3vw;
+     height: 30px;
+     background-color: #f0eded;
+     
+  
+
+     /* ✅枠線を消す */
+     border: none;
+     outline: none;
+     padding: 5px;
+ }
+
+
+/* テキストエリア */
+.form-group textarea {
+    width: 70%;
+    height: 100px;
+    background-color: #f0eded;
+
+    /* ✅枠線を消す */
+    border: none;
+    outline: none;
+    padding: 5px;
+
+   
+}
+
+
+
+/* ラジオボタンの調整 */
+.radio-group label input[type="radio"] {
+    margin-left: 10px;
+    margin-right: 5px;
+    background-color: #efeeee;
+}
+/* ラジオボタンの調整 */
+.radio-group label input[type="radio"] {
+    margin-left: 10px;
+    margin-right: 5px;
+
+    /* デフォルトのラジオボタンを消す */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #fff;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ✅選択時のグレー色 */
+.radio-group label input[type="radio"]:checked {
+    background-color: #6e6262;
+    /* グレー色 */
+    border-color: #6e6262;
+}
+
+
+
+
+
+/* ボタンの中央揃え */
+button.btn-primary {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 30px;
+    background-color: #6e6262;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.btn-primary:hover {
+    background-color: #524346;
+}
+
+
 .error {
-    color: red;
-    font-size: 0.875em;
+    display: block;
+    color: rgb(215, 106, 106);
+    font-size: 0.9rem;
+    margin-top: 5px;
+    margin-left: 0;
+    width: 100%;
+    text-align: left;
+    margin-top: 10px;
+    /* エラーメッセージと項目の間にスペースを追加 */
 }
+
+

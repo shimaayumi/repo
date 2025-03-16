@@ -67,7 +67,7 @@ class ContactController extends Controller
                 'detail' => $request->detail,
             ]
         ]);
-
+        
         // 確認画面にリダイレクト
         return redirect()->route('contact.confirm');
     }
@@ -77,11 +77,14 @@ class ContactController extends Controller
         // セッションからデータを取得
         $data = session('contact_data');
 
+        
+
         // カテゴリ名を取得
         $categoryName = Category::find($data['category_id'])->content ?? '不明';
 
         // ビューにデータを渡す
         return view('confirm', compact('data', 'categoryName'));
+        
     }
 
     // 送信処理

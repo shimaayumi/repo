@@ -11,20 +11,12 @@
 </head>
 
 <body>
-    <header class="header">
-        <div class="header__inner">
-            <a class="header__logo" href="/">
-                FashionablyLate
-            </a>
-        </div>
-    </header>
+
 
     <div class="container">
         <h2>お問い合わせありがとうございました</h2>
-
         
-
-        <a href="{{ route('contact.index') }}" class="btn btn-primary">HOME</a>
+        <a href="/" class="home-button">HOME</a>
     </div>
 </body>
 
