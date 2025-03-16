@@ -2,128 +2,94 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Category;
 use App\Models\Contact;
-use App\Http\Requests\ContactFormRequest;
+use App\Models\Category;
+use App\Http\Requests\ContactRequest;
+use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    // 入力フォームを表示
+    // 新規お問い合わせフォームの表示
     public function index()
     {
-        // カテゴリーデータを取得してビューに渡す
+        // カテゴリーデータを取得
         $categories = Category::all();
-        return view('index', compact('categories'));
 
-   
+        // セッションからデータを取得
+        $contactData = session('contact_data', []); // セッションからデータを取得、なければ空配列を返す
+
+        return view('index', [
+            'first_name' => $contactData['first_name'] ?? '', // セッションにデータがあれば取得
+            'last_name' => $contactData['last_name'] ?? '',
+            'email' => $contactData['email'] ?? '',
+            'tel' => $contactData['tel'] ?? '',
+            'address' => $contactData['address'] ?? '',
+            'categories' => $categories, // カテゴリーデータもビューに渡す
+        ]);
     }
 
-
-
-    public function store(ContactFormRequest $request)
+    public function store(ContactRequest $request)
     {
-        $data = $request->validated();
-        
+        // 3つの電話番号を結合
+        $tel = $request->tel1 . $request->tel2 . $request->tel3;
 
-        $validated = $request->validate([
-            'tel1' => 'required|digits:3',
-            'tel2' => 'required|digits:4',
-            'tel3' => 'required|digits:4',
+        // 姓と名を結合してフルネームを作成
+        $name = $request->first_name . ' ' . $request->last_name;
+
+        // カテゴリー名を取得
+        $categoryName = Category::find($request->category_id)->content ?? '未選択';
+
+        // データを保存
+        $contact = Contact::create([
+            'category_id' => $request->category_id,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'gender' => $request->gender,
+            'email' => $request->email,
+            'tel' => $tel, // 結合した電話番号を保存
+            'address' => $request->address,
+            'building' => $request->building,
+            'detail' => $request->detail,
         ]);
 
-        // 電話番号を結合して1つの文字列にする
-        $tel = $validated['tel1'] . '-' . $validated['tel2'] . '-' . $validated['tel3'];
-
-
-        // 性別デフォルト設定 (未選択時)
-        if (empty($data['gender'])) {
-            $data['gender'] = 1;  // デフォルトは "男性"
-        }
-
-        return redirect()->route('contact.confirm')->withInput($data);
-    }
-
-    public function confirm(Request $request)
-    {
-        // フォームから送信されたデータを取得
-        $data = $request->old();
-
-        // 姓と名を結合して表示
-        $fullName = $data['last_name'] . ' ' . $data['first_name'];
-
-        // フォームから送信された tel1, tel2, tel3 を結合
-        $tel = $data['tel1'] . $data['tel2'] . $data['tel3'];
-
-        // 結合された電話番号を $data に追加
-        $data['tel'] = $tel;
-
-        // category_id からカテゴリ名を取得
-        $category = Category::find($data['category_id']);
-        $categoryName = $category ? $category->content : '未選択';
-
-        // 性別変換 (1=男性, 2=女性, 3=その他)
-        $genderLabels = ['1' => '男性', '2' => '女性', '3' => 'その他'];
-        $data['gender'] = $genderLabels[$data['gender']] ?? '不明';
-
-        // 建物名を $data に追加
-        $building = $data['building'] ?? '未入力';
-        $data['building'] = $building;
-
-
-        // ビューに渡す
-        return view(
-            'confirm',
-            [
-                'fullName' => $fullName,  // $fullName をビューに渡す
-                'data' => $data,  // $data もビューに渡す
-                'categoryName' => $categoryName  // カテゴリ名もビューに渡す
+        // セッションにデータを保存
+        session([
+            'contact_data' => [
+                'first_name' => $request->first_name,   // first_name を保存
+                'last_name' => $request->last_name,     // last_name を保存
+                'fullName' => $name,                    // fullName を保存
+                'tel' => $tel,
+                'gender' => $request->gender,
+                'email' => $request->email,
+                'address' => $request->address,
+                'building' => $request->building, // セッションに保存
+                'category_id' => $request->category_id,
+                'detail' => $request->detail,
             ]
-        );
+        ]);
+
+        // 確認画面にリダイレクト
+        return redirect()->route('contact.confirm');
     }
-    
-      
 
-       
+    public function confirm()
+    {
+        // セッションからデータを取得
+        $data = session('contact_data');
 
+        // カテゴリ名を取得
+        $categoryName = Category::find($data['category_id'])->content ?? '不明';
 
-   
+        // ビューにデータを渡す
+        return view('confirm', compact('data', 'categoryName'));
+    }
 
     // 送信処理
     public function submit(Request $request)
     {
-        // 確認画面からhiddenデータを受け取る
-        $data = $request->only([
-            'first_name',
-            'last_name',
-            'gender',
-            'email',
-            'tel',
-            'address',
-            'category_id',
-            'detail'
-        ]);
-
-        // genderが文字列（例：女性）の場合、整数に変換
-        $genderMap = [
-            '男性' => 1,
-            '女性' => 2,
-            'その他' => 3,
-        ];
-
-        if (isset($data['gender']) && array_key_exists($data['gender'], $genderMap)) {
-            $data['gender'] = $genderMap[$data['gender']];
-        }
-       
-        
-        // フォームデータを保存
-        Contact::create($data);
-
         // 送信完了画面へリダイレクト
         return redirect()->route('contact.thanks');
     }
-
-   
 
     // 送信完了画面を表示
     public function thanks()
@@ -137,7 +103,10 @@ class ContactController extends Controller
         $query = Contact::query();
 
         if ($request->filled('name')) {
-            $query->where('name', 'like', '%' . $request->name . '%');
+            $query->where(function ($q) use ($request) {
+                $q->where('first_name', 'like', '%' . $request->name . '%')
+                    ->orWhere('last_name', 'like', '%' . $request->name . '%');
+            });
         }
 
         if ($request->filled('email')) {
@@ -148,18 +117,11 @@ class ContactController extends Controller
             $query->where('gender', $request->gender);
         }
 
-        if ($request->filled('inquiry_type')) {
-            $query->where('inquiry_type', 'like', '%' . $request->inquiry_type . '%');
-        }
-
-        if ($request->filled('date')) {
-            $query->whereDate('date', $request->date);
-        }
-
         $results = $query->paginate(7);
 
         // ビューにresultsを渡す
         return view('admin.contacts', compact('results'));
     }
 
+    
 }

@@ -154,11 +154,14 @@
                     <p>お問合せ内容 {{ $contact->detail }}</p>
                 </div>
                 <div class="modal-footer">
+
+
                     <form method="POST" action="{{ route('admin.delete-contact', $contact->id) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">削除</button>
                     </form>
+
                 </div>
             </div>
         </div>

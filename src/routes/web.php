@@ -14,11 +14,11 @@ Fortify::registerView(fn() => view('auth.register'));
 Fortify::resetPasswordView(fn() => view('auth.passwords.reset'));
 
 // お問い合わせ関連のルート
-Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
-Route::post('contact/store', [ContactController::class, 'store'])->name('contact.store');
-Route::get('contact/confirm', [ContactController::class, 'confirm'])->name('contact.confirm');
-Route::post('contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
-Route::get('contact/thanks', [ContactController::class, 'thanks'])->name('contact.thanks');
+Route::get('/', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/contact/confirm', [ContactController::class, 'confirm'])->name('contact.confirm');
+Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
+Route::get('/contact/thanks', [ContactController::class, 'thanks'])->name('contact.thanks');
 
 
 Route::get('auth/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
@@ -48,3 +48,15 @@ Route::delete('/admin/contact/{contact}', [AdminController::class, 'destroyConta
 
 // 管理画面のルート
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+
+
+Route::delete('/contact/{contact}', [AdminController::class, 'destroy'])->name('admin.contact.delete');
+
+
+// 入力画面（編集画面）を表示するルート
+Route::get('/contact/edit', [ContactController::class, 'edit'])->name('contact.edit');
+
+Route::get('contact/{id}/edit', [ContactController::class, 'edit'])->name('contact.edit');
+Route::put('contact/{id}', [ContactController::class, 'update'])->name('contact.update');
+
+Route::get('/index', [ContactController::class, 'index'])->name('index');

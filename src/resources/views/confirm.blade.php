@@ -13,30 +13,24 @@
         @csrf
 
         <div>
-            <label>お名前</label>
-            <p>{{ $fullName }}</p>
-
-            <!-- first_name を hidden フィールドとして渡す -->
-            <input type="hidden" name="first_name" value="{{ $data['first_name'] }}">
-            <input type="hidden" name="last_name" value="{{ $data['last_name'] }}">
+            <p>お名前: {{ $data['fullName'] }}</p>
         </div>
 
-
-
-
         <div>
-            <label>性別</label>
-            <input type="hidden" name="gender" value="{{ $data['gender'] }}">
-            <p>
-                @if (old('gender') == '1')
+            <p>性別:
+                @switch($data['gender'])
+                @case(1)
                 男性
-                @elseif (old('gender') == '2')
+                @break
+                @case(2)
                 女性
-                @elseif (old('gender') == '3')
+                @break
+                @case(3)
                 その他
-                @else
+                @break
+                @default
                 不明
-                @endif
+                @endswitch
             </p>
         </div>
 
@@ -63,10 +57,11 @@
             <p>{{ $data['building'] ?? '未入力' }}</p> <!-- 確認画面で表示用 -->
             <input type="hidden" name="building" value="{{ $data['building'] ?? '' }}"> <!-- データ送信用 -->
         </div>
+
         <div>
             <label>お問い合わせの種類</label>
-            <p>{{ $categoryName }}</p>
-            <input type="hidden" name="category_id" value="{{ $data['category_id'] }}">
+            <p>{{ $categoryName ?? '未選択' }}</p> <!-- 未選択の場合も表示 -->
+            <input type="hidden" name="category_id" value="{{ $data['category_id'] ?? '' }}"> <!-- データ送信用 -->
         </div>
 
         <div>
@@ -76,7 +71,7 @@
         </div>
 
         <button type="submit">送信</button>
-        <a href="{{ route('contact.index') }}">修正</a>
+        <a href="{{ route('index') }}" class="btn btn-secondary">修正</a>
     </form>
 
 </body>

@@ -54,13 +54,14 @@ class AdminController extends Controller
         return $this->index($request); // 検索も index の処理を使い回せる！
     }
 
-    // ユーザー削除処理
-    public function destroy(User $user)
+    public function destroy(Contact $contact)
     {
-        // ユーザー削除
-        $user->delete();
+        // お問い合わせを削除
+        $contact->delete();
 
         // 削除後に管理画面にリダイレクト
-        return redirect()->route('admin')->with('success', 'ユーザーが削除されました。');
+        return redirect()->route('admin')->with('success', 'お問い合わせが削除されました。');
     }
+
+   
 }
