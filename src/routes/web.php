@@ -52,7 +52,7 @@ Route::delete('/admin/contact/{contact}', [AdminController::class, 'destroyConta
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
 
 
-Route::delete('/contact/{contact}', [AdminController::class, 'destroy'])->name('admin.contact.delete');
+Route::delete('/admin/contact/{contact}', [AdminController::class, 'destroy'])->name('admin.delete-contact');
 
 
 // 入力画面（編集画面）を表示するルート
@@ -61,5 +61,5 @@ Route::get('/contact/edit', [ContactController::class, 'edit'])->name('contact.e
 Route::get('contact/{id}/edit', [ContactController::class, 'edit'])->name('contact.edit');
 Route::put('contact/{id}', [ContactController::class, 'update'])->name('contact.update');
 
-Route::get('/index', [ContactController::class, 'index'])->name('index');
+Route::get('/', [ContactController::class, 'index'])->name('index');
 Route::get('/admin/export', [AdminController::class, 'export'])->name('admin.export');

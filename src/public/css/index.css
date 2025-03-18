@@ -42,7 +42,7 @@ h2 {
 body {
     width: 100%;
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+   
     margin: 0;
     padding: 0;
     color: #6e6262;
@@ -141,12 +141,7 @@ main {
 
 
 
-/* ラジオボタンの調整 */
-.radio-group label input[type="radio"] {
-    margin-left: 10px;
-    margin-right: 5px;
-    background-color: #efeeee;
-}
+
 /* ラジオボタンの調整 */
 .radio-group label input[type="radio"] {
     margin-left: 10px;
@@ -205,4 +200,43 @@ button.btn-primary:hover {
     /* エラーメッセージと項目の間にスペースを追加 */
 }
 
+/* セレクトボックスの矢印をカスタマイズ */
+.custom-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding-right: 30px;
+    /* 矢印のためのスペース */
+    color: #6e6262;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    position: relative;
 
+    background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 12 12%22%3E%3Cpolygon points=%220,4 6,10 12,4%22 fill=%22%23a4827b%22/%3E%3C/svg%3E');
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        /* 矢印の位置 */
+        background-size: 12px;
+}
+
+/* 矢印を追加 */
+.custom-select::after {
+    content: "▼";
+    /* 下矢印 */
+    font-size: 16px;
+    color: #a4827b;
+    /* 矢印の色 */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    /* 矢印クリックを無効にする */
+}
+
+textarea {
+    resize: none;
+    /* リサイズマークを消す */
+}

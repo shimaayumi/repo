@@ -100,7 +100,8 @@
                     <!-- お問い合わせの種類 -->
                     <div class="form-group">
                         <label for="category_id">お問い合わせの種類<span class="label--required">※</span></label>
-                        <select name="category_id" required>
+
+                        <select name="category_id" required class="custom-select">
                             <option value="">選択してください</option>
                             @foreach ($categories as $category)
                             <option value="{{ $category->id }}" {{ old('category_id', session('contact_data.category_id')) == $category->id ? 'selected' : '' }}>
@@ -108,10 +109,9 @@
                             </option>
                             @endforeach
                         </select>
-                       
+
                         @error('category_id')<span class="error">{{ $message }}</span>@enderror
                     </div>
-
                     <!-- お問い合わせ内容 -->
                     <div class="form-group">
                         <label for="detail">お問い合わせ内容<span class="label--required">※</span></label>

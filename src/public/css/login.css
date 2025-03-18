@@ -1,0 +1,236 @@
+.header {
+    position: relative;
+    /* 中央配置の基準を作る */
+    display: flex;
+    justify-content: center;
+    /* タイトルを中央に配置 */
+    align-items: center;
+    height: 60px;
+
+    background-color: #fff;
+}
+
+.header__inner {
+
+    padding: 10px;
+
+
+}
+
+
+.header__logo {
+    color: #866d6d;
+    font-size: 36px;
+    text-decoration: none;
+    font-family: 'Times New Roman', serif;
+
+    margin: 0;
+
+}
+
+
+
+
+body {
+   
+   
+    margin: 0;
+    padding: 0;
+
+    align-items: center;
+    height: 100vh;
+    background-color: #e4dfdf;
+}
+
+main {
+    width: 50%;
+
+    display: flex;
+    margin: 30px auto;
+    justify-content: center;
+    text-align: center;
+    background-color: #e4dfdf;
+}
+
+/* ナビゲーションリンク */
+nav a {
+
+    color: #6e6262;
+
+    font-size: 18px;
+    margin-bottom: 20px;
+    position: absolute;
+    /* 絶対位置指定 */
+    right: 20px;
+    /* 右端に寄せる */
+    top: 50%;
+    transform: translateY(-50%);
+    /* 垂直中央揃え */
+
+    font-size: 18px;
+    text-decoration: none;
+
+    border: 1px solid #6e6262;
+    /* 四角いボーダーを設定 */
+
+    padding: 2px 5px;
+    /* 内側の余白を設定 */
+    background-color: #dfdada;
+    ;
+}
+
+nav a:hover {
+    color: #524346;
+}
+
+
+
+
+.login-title {
+
+font-family: 'Times New Roman', serif;
+    border-radius: 5px;
+    font-size: 18px;
+
+
+
+   
+}
+
+/* ログインコンテナ */
+.login-container {
+
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+   
+}
+
+.login-container div {
+    margin-bottom: 0px;
+    /* 下の余白を小さめに */
+}
+
+label {
+    display: block;
+        color: #6e6262;
+    
+        margin: 5px auto;
+        text-align: left;
+        font-family: 'Arial', sans-serif;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+button {
+    margin-top: 10px;
+    /* ボタンの位置調整 */
+}
+
+
+h2 {
+    color: #6e6262;
+    margin-bottom: 20px;
+
+
+}
+
+/* フォームのスタイル */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 中央揃え */
+    background-color: #fff;
+    border-radius: 5px;
+  
+    
+    
+}
+
+form div {
+   
+    text-align: center;
+    /* 左寄せを中央揃えに変更 */
+    margin: 60px 100px;
+    border-radius: 5px;
+    
+    
+    
+}
+
+label {
+    display: block;
+    color: #6e6262;
+    font-weight: bold;
+    margin: 10px auto;
+    text-align: left;
+   
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 300px;
+    /* 幅を狭めて中央揃えしやすく */
+    padding: 8px;
+    border: 1px solid #d7cece;
+    border-radius: 5px;
+    box-sizing: border-box;
+    
+    /* 入力テキストも中央 */
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+
+}
+
+/* エラーメッセージ */
+span {
+    color: rgb(215, 106, 106);
+    font-size: 0.8rem;
+    display: block;
+    text-align: left;
+    /* エラーも中央寄せに */
+}
+
+/* ボタンスタイル */
+button {
+    width: 20%;
+    /* ボタン幅も揃える */
+    padding: 5px;
+    background-color: #6e6262;
+    color: #fff;
+    border: none;
+    
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin: 50px auto;
+}
+
+button:hover {
+    background-color: #524346;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+    .login-container {
+        width: 80%;
+        padding: 15px;
+    }
+
+    nav a {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .login-container {
+        width: 400px;
+    }
+}

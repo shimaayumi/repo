@@ -106,9 +106,6 @@ a.btn-secondary {
     transition: background-color 0.3s;
 }
 
-a.btn-secondary:hover {
-    background-color: #5a6268;
-}
 
 div {
     text-align: center;
