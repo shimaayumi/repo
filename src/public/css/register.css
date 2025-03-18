@@ -64,13 +64,14 @@ body {
     padding: 0;
 
     align-items: center;
-    height: 100vh;
+    
+  
     background-color: #e4dfdf;
 }
 
 main {
-    width: 50%;
-
+    width: 70%;
+    height: 80%;
     display: flex;
     margin: 20px auto;
     justify-content: center;
@@ -113,14 +114,15 @@ font-family: 'Times New Roman', serif;
 
 label {
     display: block;
-    margin-bottom: 1px;
-    /* ラベルと入力欄の間を狭める */
+   
+    
 }
 
 input {
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
+    background-color: #f0eeee;
 }
 
 button {
@@ -145,15 +147,13 @@ form {
     background-color: #fff;
     border-radius: 5px;
 
-
-
 }
 
 form div {
 
     text-align: center;
     /* 左寄せを中央揃えに変更 */
-    margin: 30px 100px;
+    margin:10px 120px;
     border-radius: 5px;
 
 
@@ -164,7 +164,7 @@ label {
     display: block;
     color: #6e6262;
     
-    margin: 10px auto;
+    margin-top: 30px ;
     text-align: left;
 font-family: 'Arial', sans-serif;
 }
@@ -173,7 +173,7 @@ input[type="email"],
 input[type="password"] {
     width: 300px;
     /* 幅を狭めて中央揃えしやすく */
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #d7cece;
     border-radius: 5px;
     box-sizing: border-box;
@@ -207,7 +207,7 @@ button {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
-    margin: 50px auto;
+    margin: 40px auto;
 }
 
 button:hover {

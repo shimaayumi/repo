@@ -25,7 +25,7 @@ class ContactRequest extends FormRequest
             'address' => 'required|string|max:255', // 住所（255文字以内）
             'building' => 'nullable|string|max:255', // 建物名（任意で255文字以内）
             
-            'detail' => 'required|string', // お問い合わせ内容（必須）
+            'detail' => 'required|string|max:120', // お問い合わせ内容（必須）
         ];
     }
 

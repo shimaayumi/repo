@@ -23,7 +23,7 @@
     <main>
         <h2>Confirm</h2>
 
-        <form action="{{ route('contact.submit') }}" method="POST">
+        <form action="{{ route('submit') }}" method="POST">
             @csrf
 
             <table>

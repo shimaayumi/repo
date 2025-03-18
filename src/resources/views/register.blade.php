@@ -24,6 +24,7 @@
 
     </header>
     <main>
+
         <div class="register-title">
             <h2>Register</h2>
 

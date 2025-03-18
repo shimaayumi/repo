@@ -25,7 +25,7 @@
                 <h2>Contact</h2>
             </div>
 
-            <form action="{{ route('contact.store') }}" method="POST" novalidate>
+            <form action="{{ route('store') }}" method="POST" novalidate>
                 @csrf
 
                 <div>

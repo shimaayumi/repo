@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -17,7 +18,7 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('login');
     }
 
     /**
@@ -26,20 +27,13 @@ class LoginController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(LoginRequest $request)
     {
-        // 手動でバリデーションを実行
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ], [
-            'email.required' => 'メールアドレスを入力してください',
-            'email.email' => 'メールアドレスは「ユーザー名@ドメイン」形式で入力してください',
-            'password.required' => 'パスワードを入力してください',
-        ]);
+        // リクエストからemailとpasswordを取得
+        $credentials = $request->only('email', 'password');
 
         // ユーザー認証を試みる
-        if (Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']], $request->remember)) {
+        if (Auth::attempt($credentials, $request->remember)) {
             // ログイン成功後のリダイレクト
             return redirect()->intended(route('admin'));  // 管理画面にリダイレクト
         }

@@ -67,9 +67,11 @@ class ContactController extends Controller
                 'detail' => $request->detail,
             ]
         ]);
-        
+
+
+   
         // 確認画面にリダイレクト
-        return redirect()->route('contact.confirm');
+        return redirect()->route('confirm');
     }
 
     public function confirm()
@@ -91,12 +93,15 @@ class ContactController extends Controller
     public function submit(Request $request)
     {
         // 送信完了画面へリダイレクト
-        return redirect()->route('contact.thanks');
+        return redirect()->route('thanks');
     }
 
     // 送信完了画面を表示
     public function thanks()
     {
+
+        // データが正常に保存された後、セッションデータを削除
+        session()->forget('contact_data');
         return view('thanks');
     }
 
@@ -126,5 +131,5 @@ class ContactController extends Controller
         return view('admin.contacts', compact('results'));
     }
 
-    
+
 }
